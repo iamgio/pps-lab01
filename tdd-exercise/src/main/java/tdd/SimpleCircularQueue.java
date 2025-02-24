@@ -7,9 +7,10 @@ import java.util.List;
  *
  */
 public class SimpleCircularQueue<T> implements CircularQueue<T> {
+    private static final int GET_AT_INDEX = 0;
+
     private final List<T> data;
     private final int maxSize;
-    private int index = 0;
 
     public SimpleCircularQueue(int maxSize) {
         this.data = new LinkedList<>();
@@ -28,13 +29,10 @@ public class SimpleCircularQueue<T> implements CircularQueue<T> {
 
     @Override
     public void enqueue(T value) {
-        if (index >= this.size()) {
-            this.data.add(value);
-        } else {
-            this.data.set(index, value);
+        if (this.size() >= maxSize) {
+            this.data.remove(GET_AT_INDEX);
         }
-
-        index = (index + 1) % maxSize;
+        this.data.add(value);
     }
 
     @Override
@@ -43,6 +41,6 @@ public class SimpleCircularQueue<T> implements CircularQueue<T> {
             throw new IllegalStateException("Queue is empty.");
         }
 
-        return this.data.remove(0);
+        return this.data.remove(GET_AT_INDEX);
     }
 }
