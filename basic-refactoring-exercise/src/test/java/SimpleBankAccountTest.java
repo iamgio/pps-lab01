@@ -27,32 +27,32 @@ class SimpleBankAccountTest {
     }
 
     @Test
-    void testInitialBalance() {
+    void initialBalance() {
         assertEquals(INITIAL_BALANCE, bankAccount.getBalance());
     }
 
     @Test
-    void testDeposit() {
+    void deposit() {
         bankAccount.deposit(accountHolder.getId(), DEPOSIT_AMOUNT);
         assertEquals(DEPOSIT_AMOUNT, bankAccount.getBalance());
     }
 
     @Test
-    void testWrongDeposit() {
+    void wrongDeposit() {
         bankAccount.deposit(accountHolder.getId(), DEPOSIT_AMOUNT);
         bankAccount.deposit(OTHER_USER_ID, DEPOSIT_AMOUNT);
         assertEquals(DEPOSIT_AMOUNT, bankAccount.getBalance());
     }
 
     @Test
-    void testWithdraw() {
+    void withdraw() {
         bankAccount.deposit(accountHolder.getId(), DEPOSIT_AMOUNT);
         bankAccount.withdraw(accountHolder.getId(), WITHDRAW_AMOUNT);
         assertEquals(DEPOSIT_AMOUNT - WITHDRAW_AMOUNT, bankAccount.getBalance());
     }
 
     @Test
-    void testWrongWithdraw() {
+    void wrongWithdraw() {
         bankAccount.deposit(accountHolder.getId(), DEPOSIT_AMOUNT);
         bankAccount.withdraw(OTHER_USER_ID, WITHDRAW_AMOUNT);
         assertEquals(DEPOSIT_AMOUNT, bankAccount.getBalance());
