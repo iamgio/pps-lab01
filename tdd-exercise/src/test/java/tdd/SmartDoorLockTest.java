@@ -17,6 +17,16 @@ public class SmartDoorLockTest {
         this.lock = new SimpleSmartDoorLock();
     }
 
+    private void updateInitialPin() {
+        lock.unlock(SimpleSmartDoorLock.INITIAL_PIN);
+        lock.setPin(PIN);
+    }
+
+    private void updateInitialPinAndLock() {
+        this.updateInitialPin();
+        lock.lock();
+    }
+
     @Test
     void initiallyLocked() {
         assertTrue(lock.isLocked());
@@ -30,7 +40,19 @@ public class SmartDoorLockTest {
 
     @Test
     void pinUnlock() {
-        lock.setPin(PIN);
+        updateInitialPin();
+        assertFalse(lock.isLocked());
+    }
+
+    @Test
+    void pinLock() {
+        updateInitialPinAndLock();
+        assertTrue(lock.isLocked());
+    }
+
+    @Test
+    void pinLockUnlock() {
+        updateInitialPinAndLock();
         lock.unlock(PIN);
         assertFalse(lock.isLocked());
     }
@@ -47,13 +69,13 @@ public class SmartDoorLockTest {
 
     @Test
     void failAttempt() {
-        lock.setPin(PIN);
+        updateInitialPinAndLock();
         lock.unlock(SimpleSmartDoorLock.INITIAL_PIN);
         assertEquals(1, lock.getFailedAttempts());
     }
 
     private void block() {
-        lock.setPin(PIN);
+        updateInitialPinAndLock();
         for (int i = 0; i < lock.getMaxAttempts(); i++) {
             lock.unlock(SimpleSmartDoorLock.INITIAL_PIN);
         }
@@ -73,10 +95,14 @@ public class SmartDoorLockTest {
     }
 
     @Test
+    void rejectSettingPinWhileBlocked() {
+        block();
+        assertThrows(IllegalStateException.class, () -> lock.setPin(PIN));
+    }
+
+    @Test
     void reset() {
-        lock.setPin(PIN);
-        lock.unlock(SimpleSmartDoorLock.INITIAL_PIN);
-        lock.unlock(PIN);
+        updateInitialPin();
         lock.reset();
 
         assertAll(

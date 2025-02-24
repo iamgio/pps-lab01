@@ -25,6 +25,10 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
             throw new IllegalArgumentException("Only 4-digits positive pins are allowed.");
         }
 
+        if (this.locked || this.blocked) {
+            throw new IllegalStateException("System is not open.");
+        }
+
         this.pin = pin;
     }
 
