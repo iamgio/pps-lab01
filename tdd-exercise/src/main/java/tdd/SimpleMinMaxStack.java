@@ -12,13 +12,18 @@ public class SimpleMinMaxStack implements MinMaxStack {
     private final List<Integer> list = new ArrayList<>();
 
     private int min = Integer.MAX_VALUE;
+    private int max = Integer.MIN_VALUE;
 
     @Override
     public void push(int value) {
         this.list.add(value);
 
-        if (value < min) {
-            min = value;
+        if (value < this.min) {
+            this.min = value;
+        }
+
+        if (value > this.max) {
+            this.max = value;
         }
     }
 
@@ -60,6 +65,10 @@ public class SimpleMinMaxStack implements MinMaxStack {
             this.min = this.findNewMin();
         }
 
+        if (value == this.max) {
+            this.max = this.findNewMax();
+        }
+
         return value;
     }
 
@@ -75,7 +84,7 @@ public class SimpleMinMaxStack implements MinMaxStack {
 
     @Override
     public int getMax() {
-        return 0;
+        return this.max;
     }
 
     @Override
