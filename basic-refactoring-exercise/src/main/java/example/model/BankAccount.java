@@ -1,5 +1,7 @@
 package example.model;
 
+import example.exception.MismatchingUserIdException;
+
 /**
  * This interface defines the concept of a very basic bank account.
  */
@@ -23,6 +25,7 @@ public interface BankAccount {
      *
      * @param userID the id of the user that wants do the deposit
      * @param amount the amount of the deposit
+     * @throws MismatchingUserIdException if the given ID does not match the holder ID
      */
     void deposit(int userID, double amount);
 
@@ -32,6 +35,8 @@ public interface BankAccount {
      *
      * @param userID the id of the user that wants do the withdrawal
      * @param amount the amount of the withdrawal
+     * @throws MismatchingUserIdException if the given ID does not match the holder ID
+     * @throws IllegalArgumentException if the given amount cannot be withdrawn
      */
     void withdraw(int userID, double amount);
 }

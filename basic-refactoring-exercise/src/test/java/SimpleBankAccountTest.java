@@ -69,6 +69,6 @@ class SimpleBankAccountTest {
     @Test
     void withdrawMoreThanAvailableIncludingFee() {
         bankAccount.deposit(accountHolder.getId(), DEPOSIT_AMOUNT);
-        assertThrows(IllegalStateException.class, () -> bankAccount.withdraw(accountHolder.getId(), DEPOSIT_AMOUNT));
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(accountHolder.getId(), DEPOSIT_AMOUNT));
     }
 }

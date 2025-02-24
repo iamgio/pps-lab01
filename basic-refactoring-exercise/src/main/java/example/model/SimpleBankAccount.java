@@ -44,7 +44,7 @@ public class SimpleBankAccount implements BankAccount {
         }
 
         if (!isWithdrawAllowed(amount)) {
-            throw new IllegalStateException("Requested " + amount + ", but " + this.balance + " available.");
+            throw new IllegalArgumentException("Requested " + amount + ", but " + this.balance + " available.");
         }
 
         this.balance -= amount + WITHDRAW_FEE;
