@@ -65,4 +65,14 @@ class MinMaxStackImplTest {
         assertEquals(0, stack.pop());
         assertTrue(stack.isEmpty());
     }
+
+    @Test
+    void min() {
+        stack.push(2);
+        stack.push(4);
+        stack.push(2);
+        stack.push(1);
+
+        assertEquals(1, stack.getMin());
+    }
 }

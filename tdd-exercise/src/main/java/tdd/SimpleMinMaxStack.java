@@ -10,9 +10,15 @@ public class SimpleMinMaxStack implements MinMaxStack {
 
     private final List<Integer> list = new ArrayList<>();
 
+    private int min = Integer.MAX_VALUE;
+
     @Override
     public void push(int value) {
         this.list.add(value);
+
+        if (value < min) {
+            min = value;
+        }
     }
 
     private void checkNotEmpty() {
@@ -22,26 +28,23 @@ public class SimpleMinMaxStack implements MinMaxStack {
     }
 
     private int getLastIndex() {
+        checkNotEmpty();
         return this.list.size() - 1;
     }
 
     @Override
     public int pop() {
-        checkNotEmpty();
-
         return this.list.remove(this.getLastIndex());
     }
 
     @Override
     public int peek() {
-        checkNotEmpty();
-
         return this.list.get(this.getLastIndex());
     }
 
     @Override
     public int getMin() {
-        return 0;
+        return this.min;
     }
 
     @Override
