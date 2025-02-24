@@ -30,7 +30,7 @@ public class SimpleBankAccount implements BankAccount {
 
     @Override
     public void deposit(final int userID, final double amount) {
-        if (!checkUser(userID)) {
+        if (isIdInvalid(userID)) {
             throw new MismatchingUserIdException(userID);
         }
 
@@ -39,7 +39,7 @@ public class SimpleBankAccount implements BankAccount {
 
     @Override
     public void withdraw(final int userID, final double amount) {
-        if (!checkUser(userID)) {
+        if (isIdInvalid(userID)) {
             throw new MismatchingUserIdException(userID);
         }
 
@@ -54,7 +54,7 @@ public class SimpleBankAccount implements BankAccount {
         return this.balance >= amount + WITHDRAW_FEE;
     }
 
-    private boolean checkUser(final int id) {
-        return this.holder.getId() == id;
+    private boolean isIdInvalid(final int id) {
+        return this.holder.getId() != id;
     }
 }
