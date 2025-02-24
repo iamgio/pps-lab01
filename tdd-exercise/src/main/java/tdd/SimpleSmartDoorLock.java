@@ -78,6 +78,8 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
     @Override
     public void reset() {
         this.locked = true;
+        this.blocked = false;
         this.pin = INITIAL_PIN;
+        this.attempts = 0;
     }
 }

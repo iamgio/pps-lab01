@@ -71,4 +71,18 @@ public class SmartDoorLockTest {
         lock.unlock(PIN);
         assertTrue(lock.isLocked());
     }
+
+    @Test
+    void reset() {
+        lock.setPin(PIN);
+        lock.unlock(SimpleSmartDoorLock.INITIAL_PIN);
+        lock.unlock(PIN);
+        lock.reset();
+
+        assertAll(
+                () -> assertTrue(lock.isLocked()),
+                () -> assertEquals(0, lock.getFailedAttempts()),
+                () -> assertFalse(lock.isBlocked())
+        );
+    }
 }
