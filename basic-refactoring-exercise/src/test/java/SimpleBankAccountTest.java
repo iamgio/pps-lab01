@@ -1,3 +1,4 @@
+import example.exception.MismatchingUserIdException;
 import example.model.AccountHolder;
 import example.model.BankAccount;
 import example.model.SimpleBankAccount;
@@ -5,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * The test suite for testing the SimpleBankAccount implementation
@@ -40,7 +42,7 @@ class SimpleBankAccountTest {
     @Test
     void wrongDeposit() {
         bankAccount.deposit(accountHolder.getId(), DEPOSIT_AMOUNT);
-        bankAccount.deposit(OTHER_USER_ID, DEPOSIT_AMOUNT);
+        assertThrows(MismatchingUserIdException.class, () -> bankAccount.deposit(OTHER_USER_ID, DEPOSIT_AMOUNT));
         assertEquals(DEPOSIT_AMOUNT, bankAccount.getBalance());
     }
 
@@ -54,7 +56,19 @@ class SimpleBankAccountTest {
     @Test
     void wrongWithdraw() {
         bankAccount.deposit(accountHolder.getId(), DEPOSIT_AMOUNT);
-        bankAccount.withdraw(OTHER_USER_ID, WITHDRAW_AMOUNT);
+        assertThrows(MismatchingUserIdException.class, () -> bankAccount.withdraw(OTHER_USER_ID, WITHDRAW_AMOUNT));
         assertEquals(DEPOSIT_AMOUNT, bankAccount.getBalance());
+    }
+
+    @Test
+    void withdrawMoreThanAvailable() {
+        bankAccount.deposit(accountHolder.getId(), DEPOSIT_AMOUNT);
+        assertThrows(IllegalStateException.class, () -> bankAccount.withdraw(accountHolder.getId(), DEPOSIT_AMOUNT + 1));
+    }
+
+    @Test
+    void withdrawMoreThanAvailableIncludingFee() {
+        bankAccount.deposit(accountHolder.getId(), DEPOSIT_AMOUNT);
+        assertThrows(IllegalStateException.class, () -> bankAccount.withdraw(accountHolder.getId(), DEPOSIT_AMOUNT));
     }
 }
