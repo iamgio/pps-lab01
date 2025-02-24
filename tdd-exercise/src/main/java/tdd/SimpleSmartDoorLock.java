@@ -8,9 +8,11 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
     public static final int INITIAL_PIN = 0;
     private static final int MIN_PIN = 0;
     private static final int MAX_PIN = 9999;
+    private static final int MAX_ATTEMPTS = 3;
 
     private boolean locked;
     private int pin;
+    private int attempts = 0;
 
     public SimpleSmartDoorLock() {
         this.reset();
@@ -29,7 +31,10 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
     public void unlock(int pin) {
         if (pin == this.pin) {
             this.locked = false;
+            return;
         }
+
+        this.attempts++;
     }
 
     @Override
@@ -49,12 +54,12 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
 
     @Override
     public int getMaxAttempts() {
-        return 0;
+        return MAX_ATTEMPTS;
     }
 
     @Override
     public int getFailedAttempts() {
-        return 0;
+        return this.attempts;
     }
 
     @Override

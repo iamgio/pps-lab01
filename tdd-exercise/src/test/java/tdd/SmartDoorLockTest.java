@@ -44,4 +44,11 @@ public class SmartDoorLockTest {
     void invalidPinTooHigh() {
         assertThrows(IllegalArgumentException.class, () -> lock.setPin(INVALID_PIN_TOO_HIGH));
     }
+
+    @Test
+    void failAttempt() {
+        lock.setPin(PIN);
+        lock.unlock(SimpleSmartDoorLock.INITIAL_PIN);
+        assertEquals(1, lock.getFailedAttempts());
+    }
 }
