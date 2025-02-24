@@ -2,6 +2,7 @@ package tdd;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiPredicate;
 
 /**
  * {@link MinMaxStack} implementation.
@@ -32,15 +33,23 @@ public class SimpleMinMaxStack implements MinMaxStack {
         return this.list.size() - 1;
     }
 
-    private int findNewMin() {
-        int min = this.list.get(0);
+    private int findNew(final int initial, final BiPredicate<Integer, Integer> applyCondition) {
+        int best = initial;
         for (int value : this.list) {
-            if (value < min) {
-                min = value;
+            if (applyCondition.test(value, best)) {
+                best = value;
             }
         }
 
-        return min;
+        return best;
+    }
+
+    private int findNewMin() {
+        return this.findNew(Integer.MAX_VALUE, (a, b) -> a < b);
+    }
+
+    private int findNewMax() {
+        return this.findNew(Integer.MIN_VALUE, (a, b) -> a > b);
     }
 
     @Override
@@ -48,7 +57,7 @@ public class SimpleMinMaxStack implements MinMaxStack {
         int value = this.list.remove(this.getLastIndex());
 
         if (value == this.min) {
-            this.min = this.isEmpty() ? Integer.MAX_VALUE : this.findNewMin();
+            this.min = this.findNewMin();
         }
 
         return value;
