@@ -11,6 +11,7 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
     private static final int MAX_ATTEMPTS = 3;
 
     private boolean locked;
+    private boolean blocked;
     private int pin;
     private int attempts = 0;
 
@@ -35,6 +36,10 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
         }
 
         this.attempts++;
+
+        if (this.attempts >= MAX_ATTEMPTS) {
+            this.blocked = true;
+        }
     }
 
     @Override
@@ -49,7 +54,7 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
 
     @Override
     public boolean isBlocked() {
-        return false;
+        return this.blocked;
     }
 
     @Override
