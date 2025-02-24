@@ -19,4 +19,14 @@ public class SimpleCircularQueue<T> implements CircularQueue<T> {
     public boolean isEmpty() {
         return this.data.isEmpty();
     }
+
+    @Override
+    public int size() {
+        return this.data.size();
+    }
+
+    @Override
+    public void enqueue(T value) {
+        this.data.add(value);
+    }
 }

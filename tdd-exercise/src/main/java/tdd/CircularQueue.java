@@ -15,5 +15,20 @@ package tdd;
  */
 public interface CircularQueue<T> {
 
+    /**
+     * @return whether the queue has no elements
+     */
     boolean isEmpty();
+
+    /**
+     * @return the number of elements present in the queue, in range 0 to max size.
+     */
+    int size();
+
+    /**
+     * Adds a value to the end of the queue.
+     * If the queue is filled to its max size, the oldest value is replaced.
+     * @param value value to enqueue
+     */
+    void enqueue(T value);
 }

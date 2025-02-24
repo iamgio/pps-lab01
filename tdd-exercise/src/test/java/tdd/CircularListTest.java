@@ -3,6 +3,7 @@ package tdd;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -20,7 +21,21 @@ public class CircularListTest {
     }
 
     @Test
-    public void initialization() {
+    void initialization() {
         assertTrue(queue.isEmpty());
+    }
+
+    @Test
+    void linearEnqueueOnce() {
+        queue.enqueue(1);
+        assertEquals(1, queue.size());
+    }
+
+    @Test
+    void linearEnqueueThrice() {
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        assertEquals(3, queue.size());
     }
 }
