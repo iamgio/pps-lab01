@@ -52,12 +52,23 @@ public class SmartDoorLockTest {
         assertEquals(1, lock.getFailedAttempts());
     }
 
-    @Test
-    void failToBlock() {
+    private void block() {
         lock.setPin(PIN);
         for (int i = 0; i < lock.getMaxAttempts(); i++) {
             lock.unlock(SimpleSmartDoorLock.INITIAL_PIN);
         }
+    }
+
+    @Test
+    void failToBlock() {
+        block();
         assertTrue(lock.isBlocked());
+    }
+
+    @Test
+    void rejectUnlockingWhileBlocked() {
+        block();
+        lock.unlock(PIN);
+        assertTrue(lock.isLocked());
     }
 }

@@ -28,18 +28,26 @@ public class SimpleSmartDoorLock implements SmartDoorLock {
         this.pin = pin;
     }
 
-    @Override
-    public void unlock(int pin) {
-        if (pin == this.pin) {
-            this.locked = false;
-            return;
-        }
-
+    private void failAttempt() {
         this.attempts++;
 
         if (this.attempts >= MAX_ATTEMPTS) {
             this.blocked = true;
         }
+    }
+
+    @Override
+    public void unlock(int pin) {
+        if (this.blocked) {
+            return;
+        }
+
+        if (pin == this.pin) {
+            this.locked = false;
+            return;
+        }
+
+        failAttempt();
     }
 
     @Override
