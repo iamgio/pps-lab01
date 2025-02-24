@@ -38,4 +38,21 @@ public class CircularListTest {
         queue.enqueue(3);
         assertEquals(3, queue.size());
     }
+
+    @Test
+    void linearDequeueOnce() {
+        queue.enqueue(1);
+        assertEquals(1, queue.dequeue());
+        assertTrue(queue.isEmpty());
+    }
+
+    @Test
+    void linearDequeueTrice() {
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        assertEquals(1, queue.dequeue());
+        assertEquals(2, queue.dequeue());
+        assertEquals(3, queue.dequeue());
+    }
 }

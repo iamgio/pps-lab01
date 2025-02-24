@@ -31,4 +31,10 @@ public interface CircularQueue<T> {
      * @param value value to enqueue
      */
     void enqueue(T value);
+
+    /**
+     * Removes the oldest value from the queue.
+     * @return the oldest value added to the queue
+     */
+    T dequeue();
 }
