@@ -25,6 +25,12 @@ public class CircularListTest {
         assertTrue(queue.isEmpty());
     }
 
+    private void enqueueIncrementally(int times) {
+        for (int i = 0; i < times; i++) {
+            queue.enqueue(i);
+        }
+    }
+
     @Test
     void linearEnqueueOnce() {
         queue.enqueue(1);
@@ -33,9 +39,7 @@ public class CircularListTest {
 
     @Test
     void linearEnqueueThrice() {
-        queue.enqueue(1);
-        queue.enqueue(2);
-        queue.enqueue(3);
+        enqueueIncrementally(3);
         assertEquals(3, queue.size());
     }
 
@@ -48,11 +52,9 @@ public class CircularListTest {
 
     @Test
     void linearDequeueTrice() {
-        queue.enqueue(1);
-        queue.enqueue(2);
-        queue.enqueue(3);
+        enqueueIncrementally(3);
+        assertEquals(0, queue.dequeue());
         assertEquals(1, queue.dequeue());
         assertEquals(2, queue.dequeue());
-        assertEquals(3, queue.dequeue());
     }
 }

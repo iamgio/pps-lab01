@@ -10,8 +10,6 @@ public class SimpleCircularQueue<T> implements CircularQueue<T> {
     private final List<T> data;
     private final int maxSize;
 
-    private int index = 0;
-
     public SimpleCircularQueue(int maxSize) {
         this.data = new LinkedList<>();
         this.maxSize = maxSize;
