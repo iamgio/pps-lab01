@@ -1,7 +1,7 @@
 package tdd;
 
 /**
- *
+ * {@link SmartDoorLock} implementation.
  */
 public class SimpleSmartDoorLock implements SmartDoorLock {
 

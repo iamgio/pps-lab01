@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * {@link CircularQueue} implementation.
  */
 public class SimpleCircularQueue<T> implements CircularQueue<T> {
     private static final int GET_AT_INDEX = 0;
