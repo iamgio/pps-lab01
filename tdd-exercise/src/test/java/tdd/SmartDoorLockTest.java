@@ -9,7 +9,7 @@ public class SmartDoorLockTest {
 
     public static final int PIN = 1234;
     public static final int TOO_LOW_INVALID_PIN = -1;
-    public static final int INVALID_PIN_TOO_HIGH = 12345;
+    public static final int TOO_HIGH_INVALID_PIN = 12345;
     private SmartDoorLock lock;
 
     @BeforeEach
@@ -58,7 +58,7 @@ public class SmartDoorLockTest {
 
     @Test
     void invalidPinTooHigh() {
-        assertThrows(IllegalArgumentException.class, () -> lock.setPin(INVALID_PIN_TOO_HIGH));
+        assertThrows(IllegalArgumentException.class, () -> lock.setPin(TOO_HIGH_INVALID_PIN));
     }
 
     @Test
